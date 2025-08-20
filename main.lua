@@ -1,3 +1,8 @@
+-- Dependencias
+
+local player = require("definitions.player")
+local colossus = require("definitions.colossus")
+
 -- Habilitar UTF-8 no terminal
 
 os.execute("chcp 65001")
@@ -26,3 +31,11 @@ print([[
                                 É hora da batalha!
 
 ]])
+
+-- Obter definição do jogador
+
+print(string.format("A vida do jogador é %d/%d", player.health, player.maxHealth))
+
+-- Obter definição do monstro
+
+local boss = colossus
