@@ -16,15 +16,47 @@ utils.enableUtf8()
 utils.printHeader()
 
 -- Obter definição do player
-local player = fencer
-local playerActions = fencerActions
+local player = {}
+local playerActions = {}
+
+while true do
+  -- 1. Mostrar personagens jogaveis
+  local characterList = {}
+
+  characterList[#characterList+1] = {
+    character = fencer,
+    actions = fencerActions
+  }
+  characterList[#characterList+1] = {
+    character = gunslinger,
+    actions = gunslingerActions
+  }
+  characterList[#characterList+1] = {
+    character = tank,
+    actions = tankActions
+  }
+
+  -- 2. Permitir entrada do usuário para escolha
+  for i, option in pairs(characterList) do
+    utils.printCreature(option.character, string.format("%d: Para escolher este personagem", i))
+  end
+  local chosenOption = utils.ask("Escolha um personagem")
+
+  if characterList[chosenOption] ~= nil then
+    -- 3. Atribuir o personagem escolhido ao player
+    player = characterList[chosenOption].character
+    playerActions = characterList[chosenOption].actions
+    break
+  end
+end
 
 -- Obter definição do monstro
 local boss = colossus
 local bossActions = colossusActions
 
 -- Apresentar o monstro
-utils.printCreature(boss)
+utils.printCreature(boss, "Seu adversário:")
+utils.ask("Qualquer tecla para continuar")
 
 -- Buildar a lista de ações
 playerActions.build()

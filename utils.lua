@@ -56,14 +56,15 @@ end
 ---
 ---Faz o print das informações de uma criatura.
 ---@param creature table
+---@param message string
 ---
-function utils.printCreature(creature)
+function utils.printCreature(creature, message)
   -- calcula o indice de vida
   local healthRate = math.ceil((creature.health / creature.maxHealth) * 10)
 
   -- cartão
   print()
-  print(" |                       Você está enfrentando:")
+  print(" |                       " .. message)
   print(" | ")
   print(" | " .. creature.name)
   print(" | ")
@@ -75,8 +76,6 @@ function utils.printCreature(creature)
   print(" |    Defesa:        " .. utils.getProgressBar(creature.defense))
   print(" |    Velocidade:    " .. utils.getProgressBar(creature.speed))
   print()
-
-  utils.ask("Qualquer tecla para continuar")
 end
 
 ---Pergunta ao usuário por um número e retorna este valor
