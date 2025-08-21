@@ -57,7 +57,7 @@ end
 ---
 function utils.printCreature(creature)
   -- calcula o indice de vida
-  local healthRate = math.floor((creature.health / creature.maxHealth) * 10)
+  local healthRate = math.ceil((creature.health / creature.maxHealth) * 10)
 
   -- cartão
   print(" | " .. creature.name)
@@ -73,8 +73,9 @@ end
 
 ---Pergunta ao usuário por um número e retorna este valor
 ---@return any
-function utils.ask()
-  io.write("> ")
+function utils.ask(message)
+  local text = message or ''
+  io.write(text .. "> ")
   local answer = io.read()
   answer = tonumber(answer)
   os.execute("cls")

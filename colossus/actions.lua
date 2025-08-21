@@ -28,7 +28,7 @@ function actions.build()
       -- 4. Apresentar resultado como print
       print(string.format("%s atacou %s e deu %d pontos de dano!", creatureData.name, playerData.name, damage))
       -- calcula o indice de vida
-      local healthRate = math.floor((playerData.health / playerData.maxHealth) * 10)
+      local healthRate = math.ceil((playerData.health / playerData.maxHealth) * 10)
       print(string.format("%s: %s", playerData.name, utils.getProgressBar(healthRate)))
       
     end
@@ -52,7 +52,7 @@ function actions.build()
       -- 4. Apresentar resultado como print
       print(string.format("%s atacou %s com um sonar e deu %d pontos de dano!", creatureData.name, playerData.name, damage))
       -- calcula o indice de vida
-      local healthRate = math.floor((playerData.health / playerData.maxHealth) * 10)
+      local healthRate = math.ceil((playerData.health / playerData.maxHealth) * 10)
       print(string.format("%s: %s", playerData.name, utils.getProgressBar(healthRate)))
       
     end
