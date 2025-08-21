@@ -3,6 +3,7 @@ local utils = require("utils")
 local player = require("player.player")
 local playerActions = require("player.actions")
 local colossus = require("colossus.colossus")
+local colossusActions = require("colossus.actions")
 
 -- Habilitar UTF-8 no terminal
 utils.enableUtf8()
@@ -12,12 +13,14 @@ utils.printHeader()
 
 -- Obter definição do monstro
 local boss = colossus
+local bossActions = colossusActions
 
 -- Apresentar o monstro
 utils.printCreature(boss)
 
 -- Buildar a lista de ações
 playerActions.build()
+bossActions.build()
 
 -- Começar o loop de batalha
 while true do
@@ -37,7 +40,7 @@ while true do
   if isActionValid then
     chosenAction.execute(player, boss)
   else
-    print("Sua ação é inválida. Você perdeu a vez!")
+    print(string.format("Sua escolha é inválida. %s perdeu a vez!", player.name))
   end
 
   -- Ponto de saída: Criatura ficou sem vida
@@ -46,7 +49,10 @@ while true do
   end
   
   -- Simular o turno da criatura
-  -- TODO
+  print()
+  local validBossActions = bossActions.getValidActions(player, boss)
+  local bossAction = validBossActions[math.random(#validBossActions)]
+  bossAction.execute(player, boss)
 
   -- Ponto de saída: Jogador ficou sem vida
   if player.health <= 0 then
