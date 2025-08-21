@@ -1,7 +1,11 @@
 -- Dependencias
 local utils = require("utils")
-local player = require("player.player")
-local playerActions = require("player.actions")
+local fencer = require("fencer.fencer")
+local fencerActions = require("fencer.actions")
+local gunslinger = require("gunslinger.gunslinger")
+local gunslingerActions = require("gunslinger.actions")
+local tank = require("tank.tank")
+local tankActions = require("tank.actions")
 local colossus = require("colossus.colossus")
 local colossusActions = require("colossus.actions")
 
@@ -10,6 +14,10 @@ utils.enableUtf8()
 
 -- Header
 utils.printHeader()
+
+-- Obter definição do player
+local player = fencer
+local playerActions = fencerActions
 
 -- Obter definição do monstro
 local boss = colossus
