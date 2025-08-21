@@ -33,6 +33,8 @@ function utils.printHeader()
                               É hora da batalha!
 
 ]])
+
+  utils.ask("Qualquer tecla para continuar")
 end
 
 ---
@@ -60,6 +62,9 @@ function utils.printCreature(creature)
   local healthRate = math.ceil((creature.health / creature.maxHealth) * 10)
 
   -- cartão
+  print()
+  print(" |                       Você está enfrentando:")
+  print(" | ")
   print(" | " .. creature.name)
   print(" | ")
   print(" | " .. creature.description)
@@ -69,6 +74,9 @@ function utils.printCreature(creature)
   print(" |    Ataque:        " .. utils.getProgressBar(creature.attack))
   print(" |    Defesa:        " .. utils.getProgressBar(creature.defense))
   print(" |    Velocidade:    " .. utils.getProgressBar(creature.speed))
+  print()
+
+  utils.ask("Qualquer tecla para continuar")
 end
 
 ---Pergunta ao usuário por um número e retorna este valor
