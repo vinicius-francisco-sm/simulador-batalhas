@@ -72,10 +72,12 @@ function utils.printCreature(creature)
 end
 
 ---Pergunta ao usuário por um número e retorna este valor
----@return number
+---@return any
 function utils.ask()
   io.write("> ")
-  local answer = io.read("*n")
+  local answer = io.read()
+  answer = tonumber(answer)
+  os.execute("cls")
   return answer
 end
 
