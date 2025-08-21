@@ -1,7 +1,7 @@
 -- Dependencias
 local utils = require("utils")
-local player = require("definitions.player")
-local colossus = require("definitions.colossus")
+local player = require("player.player")
+local colossus = require("colossus.colossus")
 
 -- Habilitar UTF-8 no terminal
 utils.enableUtf8()
