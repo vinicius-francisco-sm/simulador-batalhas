@@ -60,4 +60,21 @@ while true do
   end
 end
 
--- Fim
+-- Processar condições de derrota e vitória
+if player.health <= 0 then
+    print()
+    print("-------------------------------------------------------------------------")
+    print()
+    print("😭💀")
+    print(string.format("%s não foi capaz de vencer %s!", player.name, boss.name))
+    print("Quem sabe na próxima vez...")
+    print()
+elseif boss.health <= 0 then
+    print()
+    print("-------------------------------------------------------------------------")
+    print()
+    print("🥳🎉")
+    print(string.format("%s prevaleceu e venceu %s!", player.name, boss.name))
+    print("Parabéns!!!")
+    print()
+end
