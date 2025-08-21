@@ -13,7 +13,9 @@ function actions.build()
   -- Atacar com espada
   local bodyAttack = {
     description = "Atacar corpo a corpo.",
-    requirement = nil,
+    requirement = function (playerData, creatureData)
+      return playerData.isVisible
+    end,
     execute = function (playerData, creatureData)
       -- 1. O ataque tem sempre 100% de chance de sucesso
 
@@ -64,7 +66,7 @@ function actions.build()
     requirement = nil,
     execute = function (playerData, creatureData)
       -- 1. Apresentar resultado como print
-      print(string.format("%s se distraiu com uma borboleta e perdeu a vez!", creatureData.name))
+      print(string.format("%s errou!", creatureData.name))
     end
   }
 

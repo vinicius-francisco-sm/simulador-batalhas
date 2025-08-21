@@ -39,6 +39,30 @@ function actions.build()
     end
   }
 
+  -- Esquivar
+  local dodge = {
+    description = "Tentar se esquivar.",
+    requirement = function (playerData, creatureData)
+      return playerData.isVisible and playerData.dodgeChances > 0
+    end,
+    execute = function (playerData, creatureData)
+      -- 1. Baseado na velocidade do player e da criatura, calcular chance de sucesso
+      local successChance = creatureData.speed == 0 and 1 or playerData.speed / creatureData.speed
+      local success = math.random() <= successChance
+
+      -- 2. Printar na tela sucesso ou falha
+      if success then
+        print(string.format("%s conseguiu se esquivar! Não receberá dano direto.", playerData.name))
+        
+        -- 3. Atualizar visibilidade do jogador
+        playerData.isVisible = false
+        playerData.dodgeChances = playerData.dodgeChances - 1
+      else
+        print(string.format("%s tentou se esquivar, mas foi muito lento...", playerData.name))
+      end
+    end
+  }
+
   -- Usar poção de regeneração
   local regenPotion = {
     description = "Tomar uma poção de regeneração.",
@@ -59,6 +83,7 @@ function actions.build()
   -- Popular lista
   actions.list[#actions.list + 1] = swordAttack
   actions.list[#actions.list + 1] = regenPotion
+  actions.list[#actions.list + 1] = dodge
 end
 
 

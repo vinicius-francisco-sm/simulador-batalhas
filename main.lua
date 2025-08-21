@@ -68,6 +68,7 @@ while true do
   -- Mostrar ações para o jogador
   print()
   print(string.format("Qual será a próxima ação de %s?", player.name))
+  player.isVisible = true
   local validPlayerActions = playerActions.getValidActions(player, boss)
   for i, action in pairs(validPlayerActions) do
     print(string.format("%d: %s", i, action.description))

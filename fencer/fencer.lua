@@ -12,4 +12,7 @@ fencer.speed = 4
 
 fencer.potions = 3
 
+fencer.isVisible = true
+fencer.dodgeChances = 2
+
 return fencer
