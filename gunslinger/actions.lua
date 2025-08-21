@@ -10,9 +10,9 @@ function actions.build()
   -- Resetar lista
   actions.list = {}
 
-  -- Atacar com espada
-  local swordAttack = {
-    description = "Atacar com a espada.",
+  -- Atacar as pistolas
+  local pistolAttack = {
+    description = "Atacar com as pistolas duplas.",
     requirement = nil,
     execute = function (playerData, creatureData)
       -- 1. Definir chance de sucesso
@@ -39,6 +39,65 @@ function actions.build()
     end
   }
 
+  -- Atacar com a doze
+  local shotgunAttack = {
+    description = "Atacar com a doze.",
+    requirement = function (playerData, creatureData)
+      return playerData.shotgunShells > 0
+    end,
+    execute = function (playerData, creatureData)
+      -- 1. Definir chance de sucesso
+      local successChance = creatureData.speed == 0 and 1 or playerData.speed / creatureData.speed
+      local success = math.random() <= successChance * 0.1
+
+      -- 2. Calcular dano
+      local rawDamage = playerData.attack - math.random() * creatureData.defense
+      local damage = math.max(1, math.ceil(rawDamage * 2))
+
+      -- 3. Aplicar o dano em caso de sucesso
+      if success then
+        creatureData.health = creatureData.health - damage
+        
+        
+        -- 4. Apresentar resultado como print
+        print(string.format("%s atacou %s e deu %d pontos de dano!", playerData.name, creatureData.name, damage))
+        -- calcula o indice de vida
+        local healthRate = math.ceil((creatureData.health / creatureData.maxHealth) * 10)
+        print(string.format("%s: %s", creatureData.name, utils.getProgressBar(healthRate)))
+
+        playerData.shotgunShells = playerData.shotgunShells - 1
+      else
+        print(string.format("%s tentou atacar, mas errou!", playerData.name))
+
+        playerData.shotgunShells = playerData.shotgunShells - 1
+      end
+    end
+  }
+
+  -- Esquivar
+  local dodge = {
+    description = "Tentar se esquivar.",
+    requirement = function (playerData, creatureData)
+      return playerData.isVisible and playerData.dodgeChances > 0
+    end,
+    execute = function (playerData, creatureData)
+      -- 1. Baseado na velocidade do player e da criatura, calcular chance de sucesso
+      local successChance = creatureData.speed == 0 and 1 or playerData.speed / creatureData.speed
+      local success = math.random() <= successChance
+
+      -- 2. Printar na tela sucesso ou falha
+      if success then
+        print(string.format("%s conseguiu se esquivar! Não receberá dano direto.", playerData.name))
+        
+        -- 3. Atualizar visibilidade do jogador
+        playerData.isVisible = false
+        playerData.dodgeChances = playerData.dodgeChances - 1
+      else
+        print(string.format("%s tentou se esquivar, mas foi muito lento...", playerData.name))
+      end
+    end
+  }
+
   -- Usar poção de regeneração
   local regenPotion = {
     description = "Tomar uma poção de regeneração.",
@@ -57,8 +116,10 @@ function actions.build()
   }
 
   -- Popular lista
-  actions.list[#actions.list + 1] = swordAttack
+  actions.list[#actions.list + 1] = pistolAttack
+  actions.list[#actions.list + 1] = shotgunAttack
   actions.list[#actions.list + 1] = regenPotion
+  actions.list[#actions.list + 1] = dodge
 end
 
 

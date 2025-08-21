@@ -12,4 +12,9 @@ gunslinger.speed = 9
 
 gunslinger.potions = 4
 
+gunslinger.isVisible = true
+gunslinger.dodgeChances = 5
+
+gunslinger.shotgunShells = 2
+
 return gunslinger
